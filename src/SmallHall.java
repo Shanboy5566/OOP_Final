@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,9 +70,10 @@ public class SmallHall extends Hall {
 		}
 		return flag;
 	}
-	public boolean SetSeat(int num){
+	public ArrayList<String> SetSeat(int num){
 		int tmp = 0;
-		boolean flag = false;
+		ArrayList<String> s = new ArrayList<String>();
+//		boolean flag = false;
 //		System.out.println("here");
 		for(int i =0;i<9;i++){
 			for(int j=0;j<16;j++){
@@ -80,8 +82,11 @@ public class SmallHall extends Hall {
 					seat[i][j].setOccupied(true);
 					SeatNum--;
 					tmp++;
+					char row =(char)(i+65);
+					int col = j+1;
+					s.add(row+"_"+Integer.toString(col));
 					if(tmp==num){
-						flag = true;
+//						flag = true;
 						break;
 					}
 				}
@@ -90,9 +95,9 @@ public class SmallHall extends Hall {
 				break;
 			}
 		}
-		return flag;
+		return s;
 	}
-	public boolean SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
+	public ArrayList<String> SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
 //		if (CheckSeatValid(c, i)) {
 //			int row = c - 'A';
 //			int col = i - 1;
@@ -100,17 +105,20 @@ public class SmallHall extends Hall {
 //			this.setSeatNum(this.getSeatNum() - 1);
 //		}
 		int row = c - 'A';
-		boolean flag = false;
+		ArrayList<String> s = new ArrayList<String>();
+//		boolean flag = false;
 		String seq = FindConSeqOfRow(row,i);
-		flag =true;
+//		flag =true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
 		
 		for(int j=0;j<seqarr.length;j++){
 			seat[row][Integer.parseInt(seqarr[j])].setOccupied(true);
 			SeatNum--;
+			int col = Integer.parseInt(seqarr[j]) + 1;
+			s.add(c+"_"+Integer.toString(col));
 		}
-		return flag;
+		return s;
 	}
 
 	private String FindConSeqOfRow(int row, int num) throws  ConSeqOfRowSeatNotExist {

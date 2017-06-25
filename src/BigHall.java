@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -172,9 +173,10 @@ public class BigHall extends Hall {
 
 		return seat[row][col].getRegoin();
 	}
-	public boolean setSeat(int num){
+	public ArrayList<String> SetSeat(int num){
 		int tmp = 0;
-		boolean flag = false;
+//		boolean flag = false;
+		ArrayList<String> s = new ArrayList<String>();
 		for(int i =0;i<13;i++){
 			if(i==11){
 				for(int j=0;j<39;j++){
@@ -184,15 +186,19 @@ public class BigHall extends Hall {
 						String region = seat[i][j].getRegoin();
 						this.setRegionNum(region);
 						tmp++;
+						char row =(char)(i+65);
+						int col = j+1;
+						s.add(row+"_"+Integer.toString(col));
 					}
 					if(tmp==num){
-						flag = true;
+//						flag = true;
 						break;
 					}
 				}
 			}
 			else{
 				for(int j=0;j<38;j++){
+//					System.out.println("here");
 					if(seat[i][j].isValid()&&!seat[i][j].isOccupied()){
 //						System.out.println("row="+i+"col="+j);
 						seat[i][j].setOccupied(true);
@@ -200,6 +206,9 @@ public class BigHall extends Hall {
 						String region = seat[i][j].getRegoin();
 						this.setRegionNum(region);
 						tmp++;
+						char row =(char)(i+65);
+						int col = j+1;
+						s.add(row+"_"+Integer.toString(col));
 					}
 					if(tmp==num){
 						break;
@@ -210,21 +219,26 @@ public class BigHall extends Hall {
 				break;
 			}
 		}
-		return flag;
+		return s;
 	}
-	public boolean SetSeat(String region, int i) throws RegionSeatNotExist{
-		boolean flag = false;
+	public ArrayList<String> SetSeat(String region, int i) throws RegionSeatNotExist{
+//		boolean flag = false;
 		String seq = FindSeqOfRegion(region,i);
-		flag = true;
+		ArrayList<String> s = new ArrayList<String>();
+//		flag = true;
 //		System.out.println("seq="+seq);
 		String[] tmp = seq.split(" ");
 		for(int k=0;k<tmp.length;k=k+2){
 			seat[Integer.parseInt(tmp[k])][Integer.parseInt(tmp[k+1])].setOccupied(true);
 			SeatNum--;
 			setRegionNum(region);
+			char row =(char)(Integer.parseInt(tmp[k])+65);
+			int col = Integer.parseInt(tmp[k+1])+1;
+			
+			s.add(row +"_"+ Integer.toString(col));
 //			System.out.println("row="+tmp[k]+" col="+tmp[k+1]);
 		}
-		return flag;
+		return s;
 	}
 	
 	private void setRegionNum(String region) {
@@ -280,11 +294,12 @@ public class BigHall extends Hall {
 		return seq;
 	}
 
-	public boolean SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
+	public ArrayList<String> SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
 		int row = c - 'A';
-		boolean flag = false;
+		ArrayList<String> s = new ArrayList<String>();
+//		boolean flag = false;
 		String seq = FindConSeqOfRow(row,i);
-		flag = true;
+//		flag = true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
 //		System.out.println("NumOfGray="+NumOfGray);
@@ -295,12 +310,14 @@ public class BigHall extends Hall {
 			seat[row][Integer.parseInt(seqarr[j])].setOccupied(true);
 			setRegionNum(seat[row][Integer.parseInt(seqarr[j])]);
 			SeatNum--;
+			int col = Integer.parseInt(seqarr[j]) + 1;
+			s.add(c+"_"+Integer.toString(col));
 		}
 //		System.out.println("NumOfGray="+NumOfGray);
 //		System.out.println("NumOfBlue="+NumOfBlue);
 //		System.out.println("NumOfYellow="+NumOfYellow);
 //		System.out.println("NumOfRed="+NumOfRed);
-		return flag;
+		return s;
 	}
 	
 	
@@ -353,8 +370,10 @@ public class BigHall extends Hall {
 		}
 		else{
 			for(int i=0;i<38;i++){
-				if(seat[row][i].isValid()&&seat[row][i+1].isValid()){
-					if(!seat[row][i].isOccupied()&&!seat[row][i+1].isOccupied()){
+//				System.out.println("seat[row]["+i+"]"+seat[row][i].isOccupied());
+				if(seat[row][i].isValid()){
+					if(!seat[row][i].isOccupied()){
+//						System.out.println("seat[row]["+i+"]"+seat[row][i].isOccupied());
 						tmp++;
 						seq = seq + i + " ";
 						if(tmp==num){

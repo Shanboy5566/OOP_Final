@@ -115,13 +115,13 @@ public class Movie {
 		}
 		
 	}
-	public boolean setSeat(int num){
+	public ArrayList<String> setSeat(int num){
 		return this.getHall().SetSeat(num);
 	}
-	public boolean setSeat(String region , int num) throws RegionSeatNotExist{
+	public ArrayList<String> setSeat(String region , int num) throws RegionSeatNotExist{
 		return this.getHall().SetSeat(region, num);
 	}
-	public boolean setSeat(char row , int num) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist{
+	public ArrayList<String> setSeat(char row , int num) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist{
 		return this.getHall().SetSeat(row, num);
 	}
 	public int getMovieRemainSeat(){
