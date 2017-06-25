@@ -69,8 +69,9 @@ public class SmallHall extends Hall {
 		}
 		return flag;
 	}
-	public void SetSeat(int num){
+	public boolean SetSeat(int num){
 		int tmp = 0;
+		boolean flag = false;
 //		System.out.println("here");
 		for(int i =0;i<9;i++){
 			for(int j=0;j<16;j++){
@@ -80,6 +81,7 @@ public class SmallHall extends Hall {
 					SeatNum--;
 					tmp++;
 					if(tmp==num){
+						flag = true;
 						break;
 					}
 				}
@@ -88,8 +90,9 @@ public class SmallHall extends Hall {
 				break;
 			}
 		}
+		return flag;
 	}
-	public void SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
+	public boolean SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
 //		if (CheckSeatValid(c, i)) {
 //			int row = c - 'A';
 //			int col = i - 1;
@@ -97,7 +100,9 @@ public class SmallHall extends Hall {
 //			this.setSeatNum(this.getSeatNum() - 1);
 //		}
 		int row = c - 'A';
+		boolean flag = false;
 		String seq = FindConSeqOfRow(row,i);
+		flag =true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
 		
@@ -105,7 +110,7 @@ public class SmallHall extends Hall {
 			seat[row][Integer.parseInt(seqarr[j])].setOccupied(true);
 			SeatNum--;
 		}
-		
+		return flag;
 	}
 
 	private String FindConSeqOfRow(int row, int num) throws  ConSeqOfRowSeatNotExist {

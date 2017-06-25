@@ -172,8 +172,9 @@ public class BigHall extends Hall {
 
 		return seat[row][col].getRegoin();
 	}
-	public void setSeat(int num){
+	public boolean setSeat(int num){
 		int tmp = 0;
+		boolean flag = false;
 		for(int i =0;i<13;i++){
 			if(i==11){
 				for(int j=0;j<39;j++){
@@ -185,6 +186,7 @@ public class BigHall extends Hall {
 						tmp++;
 					}
 					if(tmp==num){
+						flag = true;
 						break;
 					}
 				}
@@ -208,9 +210,12 @@ public class BigHall extends Hall {
 				break;
 			}
 		}
+		return flag;
 	}
-	public void SetSeat(String region, int i) throws RegionSeatNotExist{
+	public boolean SetSeat(String region, int i) throws RegionSeatNotExist{
+		boolean flag = false;
 		String seq = FindSeqOfRegion(region,i);
+		flag = true;
 //		System.out.println("seq="+seq);
 		String[] tmp = seq.split(" ");
 		for(int k=0;k<tmp.length;k=k+2){
@@ -219,6 +224,7 @@ public class BigHall extends Hall {
 			setRegionNum(region);
 //			System.out.println("row="+tmp[k]+" col="+tmp[k+1]);
 		}
+		return flag;
 	}
 	
 	private void setRegionNum(String region) {
@@ -274,9 +280,11 @@ public class BigHall extends Hall {
 		return seq;
 	}
 
-	public void SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
+	public boolean SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
 		int row = c - 'A';
+		boolean flag = false;
 		String seq = FindConSeqOfRow(row,i);
+		flag = true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
 //		System.out.println("NumOfGray="+NumOfGray);
@@ -292,6 +300,7 @@ public class BigHall extends Hall {
 //		System.out.println("NumOfBlue="+NumOfBlue);
 //		System.out.println("NumOfYellow="+NumOfYellow);
 //		System.out.println("NumOfRed="+NumOfRed);
+		return flag;
 	}
 	
 	

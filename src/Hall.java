@@ -6,14 +6,14 @@ import org.json.*;
 import org.apache.commons.io.IOUtils;
 
 public class Hall {
-	public void SetSeat(int num){
-		
+	public boolean SetSeat(int num){
+		return true;
 	}
-	public void SetSeat(char c, int i) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist {
-		
+	public boolean SetSeat(char c, int i) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist {
+		return true;
 	}
-	public void SetSeat(String region, int i) throws RegionSeatNotExist{
-		
+	public boolean SetSeat(String region, int i) throws RegionSeatNotExist{
+		return true;
 	}
 	public int getSeatNum() {
 		return SeatNum;

@@ -64,7 +64,9 @@ public class test {
 //		info2.GetMovieOfGivenRow(8, 'L');
 //		info2.GetMovieOfGivenRow(8, 'L');
 //		info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat(2);
-		info2.getMovie("WGd6f01Om27eSmo9X3b6cuXu", "09：10").setSeat(2);;
+		info2.getMovie("WGd6f01Om27eSmo9X3b6cuXu", "09：10").setSeat(2);
+		System.out.println(info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat("red", 25));
+		System.out.println(info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat(2));
 //		System.out.println();
 //		System.out.println(info2.isMovieIdValid("3R47wXhjjLqnLWef6HU155ek"));
 //		System.out.println(info2.isMovieIdValid("3R47wXhjjLqnLWef6HU155e"));

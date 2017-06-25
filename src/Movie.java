@@ -115,14 +115,14 @@ public class Movie {
 		}
 		
 	}
-	public void setSeat(int num){
-		this.getHall().SetSeat(num);
+	public boolean setSeat(int num){
+		return this.getHall().SetSeat(num);
 	}
-	public void setSeat(String region , int num) throws RegionSeatNotExist{
-		this.getHall().SetSeat(region, num);
+	public boolean setSeat(String region , int num) throws RegionSeatNotExist{
+		return this.getHall().SetSeat(region, num);
 	}
-	public void setSeat(char row , int num) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist{
-		this.getHall().SetSeat(row, num);
+	public boolean setSeat(char row , int num) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist{
+		return this.getHall().SetSeat(row, num);
 	}
 	public int getMovieRemainSeat(){
 		return this.getHall().getSeatNum();
