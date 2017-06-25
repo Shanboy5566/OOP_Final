@@ -14,8 +14,7 @@ import org.apache.commons.io.IOUtils;
  *
  */
 public class MovieInfo {
-	public ArrayList<Movie> movielist = new ArrayList<Movie>();// 不為各個播放時間new
-																// hall
+	public ArrayList<Movie> movielist = new ArrayList<Movie>();// 不為各個播放時間new hall
 	public ArrayList<Movie> movie = new ArrayList<Movie>();// 為每個播放時間new hall
 
 	/**
@@ -55,8 +54,9 @@ public class MovieInfo {
 	 * 輸入電影id，輸出該電影的名稱、分級、播放時間、廳位資訊 如果輸入的電影id無效，則key值不會被更新，會是default值-1
 	 * 
 	 * @param id
+	 * @throws MovieIsNotExist 
 	 */
-	public void getMovieInfo(String id) {
+	public void getMovieInfo(String id) throws MovieIsNotExist {
 		int key = -1;
 		for (int i = 0; i < movielist.size(); i++) {
 			// System.out.println("i="+i+" movieid="+movielist.get(i).getId());
@@ -65,7 +65,7 @@ public class MovieInfo {
 			}
 		}
 		if (key == -1) {
-			System.out.println("The movie is not exist");
+			throw new MovieIsNotExist("The movie is not exist");
 		}
 		System.out.println("電影名稱:" + movielist.get(key).getMovieName());
 		System.out.println("分級:" + movielist.get(key).getClassification());
@@ -78,8 +78,9 @@ public class MovieInfo {
 	 * 
 	 * @param id
 	 * @return Movie
+	 * @throws MovieIsNotExist 
 	 */
-	public Movie getMovie(String id, String time) {
+	public Movie getMovie(String id, String time) throws MovieIsNotExist {
 		int key = -1;
 		for (int i = 0; i < movie.size(); i++) {
 			// System.out.println("i="+i+" movieid="+movielist.get(i).getId());
@@ -90,7 +91,7 @@ public class MovieInfo {
 			}
 		}
 		if (key == -1) {
-			System.out.println("The movie is not exist");
+			throw new MovieIsNotExist("The movie is not exist");
 		}
 		Movie Rmovie = movie.get(key);
 		return Rmovie;
@@ -251,5 +252,20 @@ public class MovieInfo {
 				System.out.print(movie.get(i).getTime() + ", ");
 			}
 		}
+	}
+	public void GetMovieOfGivenRegion(int NumOfseat , String region){
+		
+	}
+	public boolean isMovieIdValid(String id) throws MovieNotExist{
+		boolean flag = false;
+		for(int i=0;i<movielist.size();i++){
+			if(movielist.get(i).getId().equals(id)){
+				flag = true;
+			}
+		}
+		if(flag==false){
+			throw new MovieNotExist("The movie is not exist");
+		}
+		return flag;
 	}
 }

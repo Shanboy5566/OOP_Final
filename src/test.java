@@ -60,8 +60,12 @@ public class test {
 //		System.out.println("seatnum5="+info2.getMovie("pYXEwQEWFBBFarOD5LBJmnTU", "17：50").getMovieRemainSeat());
 //		System.out.println("seatnum4="+info2.getMovie("H55WYTppJHIwZyCfUHJLIbWC", "11：30").getHall().getSeatNum());
 //		System.out.println(info2.getMovie("H55WYTppJHIwZyCfUHJLIbWC", "11：30").getClassification());
-		info2.GetGivenMovieList(2, "20:00" , "22:00" , "180分鐘" , "0分鐘");
+//		info2.GetGivenMovieList(2, "20:00" , "22:00" , "180分鐘" , "0分鐘");
 //		info2.GetMovieOfGivenRow(8, 'L');
+		info2.GetMovieOfGivenRow(8, 'L');
+//		System.out.println();
+//		System.out.println(info2.isMovieIdValid("3R47wXhjjLqnLWef6HU155ek"));
+//		System.out.println(info2.isMovieIdValid("3R47wXhjjLqnLWef6HU155e"));
 //		int num = info2.GetMovieRemainSeat("3R47wXhjjLqnLWef6HU155ek","09：40");
 //		System.out.println("seat="+num);
 //		info2.getMovie("3R47wXhjjLqnLWef6HU155ek","09：40").getHall().SetSeat("red", 2);
