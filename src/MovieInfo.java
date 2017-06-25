@@ -225,7 +225,7 @@ public class MovieInfo {
 
 	}
 
-	public void GetMovieOfGivenRow(int NumOfseat, char row) {
+	public void GetMovieOfGivenRow(int NumOfseat, char row) throws MovieIsNotExist {
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
 		String s = "";
 		int k = 0;
@@ -234,28 +234,85 @@ public class MovieInfo {
 				tmp.add(i);
 			}
 		}
+		if(tmp.size()==0){
+			throw new MovieIsNotExist("The movie is not exist");
+		}
 		for (int i = 0; i < tmp.size(); i++) {
-			if (!s.equals(movie.get(i).getId())) {
+			if (!s.equals(movie.get(tmp.get(i)).getId())) {
 				if (k == 0) {
-					System.out.print(movie.get(i).getId() + ", ");
-					s = movie.get(i).getId();
+					System.out.print(movie.get(tmp.get(i)).getId() + ", ");
+					s = movie.get(tmp.get(i)).getId();
 					k = 1;
 				} else {
 					System.out.println();
-					System.out.print(movie.get(i).getId() + ", ");
-					s = movie.get(i).getId();
+					System.out.print(movie.get(tmp.get(i)).getId() + ", ");
+					s = movie.get(tmp.get(i)).getId();
 				}
 			}
-			if (!s.equals(movie.get(i + 1).getId())) {
-				System.out.print(movie.get(i).getTime());
-			} else {
-				System.out.print(movie.get(i).getTime() + ", ");
+			if(i!=tmp.size()-1){
+				if (!s.equals(movie.get(i + 1).getId())) {
+					System.out.print(movie.get(tmp.get(i)).getTime());
+				} else {
+					System.out.print(movie.get(tmp.get(i)).getTime() + ", ");
+				}
+			}
+			else{
+				System.out.print(movie.get(tmp.get(i)).getTime());
 			}
 		}
 	}
-	public void GetMovieOfGivenRegion(int NumOfseat , String region){
+	public void GetMovieOfGivenRegion(int NumOfseat, String region) throws MovieIsNotExist{
+		ArrayList<Integer> tmp = new ArrayList<Integer>();
+//		System.out.println("list size="+tmp.size());
+		String s = "";
+		int k =0;
+		for(int i=0;i<movie.size();i++){
+			if(movie.get(i).getHall().getHallName().equals(" 武當 ")||
+					movie.get(i).getHall().getHallName().equals(" 少林 ")||
+					movie.get(i).getHall().getHallName().equals(" 華山 ")){
+//				System.out.println("here");
+//				System.out.println("remain seat="+movie.get(i).getMovieRemainSeat());
+				if(NumOfseat<=movie.get(i).getMovieRemainSeat()){
+					if(NumOfseat<=movie.get(i).getGivenRegionRemainSeat(region)){
+						tmp.add(i);
+					}
+				}
+			}
+		}
+		if(tmp.size()==0){
+			throw new MovieIsNotExist("The movie is not exist");
+		}
+//		System.out.println("tmp="+tmp);
+		for (int i = 0; i < tmp.size(); i++) {
+			if (!s.equals(movie.get(tmp.get(i)).getId())) {
+				if (k == 0) {
+					System.out.print(movie.get(tmp.get(i)).getId() + ", ");
+					s = movie.get(tmp.get(i)).getId();
+					k = 1;
+				} else {
+					System.out.println();
+					System.out.print(movie.get(tmp.get(i)).getId() + ", ");
+					s = movie.get(tmp.get(i)).getId();
+				}
+			}
+//			System.out.println(s);
+//			System.out.println(movie.get(tmp.get(i+1)).getId());
+			if(i!=tmp.size()-1){
+				if (!s.equals(movie.get(tmp.get(i+1)).getId())) {
+					System.out.print(movie.get(tmp.get(i)).getTime());
+				} else {
+					System.out.print(movie.get(tmp.get(i)).getTime() + ", ");
+				}
+			}
+			else{
+				System.out.print(movie.get(tmp.get(i)).getTime());
+			}
+		}
+		
 		
 	}
+	
+
 	public boolean isMovieIdValid(String id) throws MovieNotExist{
 		boolean flag = false;
 		for(int i=0;i<movielist.size();i++){

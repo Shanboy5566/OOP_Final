@@ -7,6 +7,10 @@ import org.json.JSONObject;
 
 public class BigHall extends Hall {
 
+	public Seat[][] getSeat() {
+		return seat;
+	}
+
 	private int SeatNum = 407;
 	private int NumOfGray = 277;
 	private int NumOfBlue = 44;
@@ -14,7 +18,7 @@ public class BigHall extends Hall {
 	private int NumOfRed = 24;
 
 	private String HallName;
-	Seat[][] seat = new Seat[13][39];
+	private Seat[][] seat = new Seat[13][39];
 
 	public BigHall() {
 
@@ -253,7 +257,26 @@ public class BigHall extends Hall {
 			NumOfYellow--;
 			break;
 		case "red":
+//			System.out.println("NumOfRed="+NumOfRed);
 			NumOfRed--;
+			break;
+		}
+		
+	}
+	public void resetRegionNum(String region) {
+		switch(region){
+		case "gray":
+			NumOfGray++;
+			break;
+		case "blue":
+			NumOfBlue++;
+			break;
+		case "yellow":
+			NumOfYellow++;
+			break;
+		case "red":
+//			System.out.println("NumOfRed"+NumOfRed);
+			NumOfRed++;
 			break;
 		}
 		

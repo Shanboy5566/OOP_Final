@@ -124,6 +124,26 @@ public class Movie {
 	public ArrayList<String> setSeat(char row , int num) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist{
 		return this.getHall().SetSeat(row, num);
 	}
+	public boolean ResetSeatOccupied(ArrayList<String> seat){
+		boolean flag = true;
+		System.out.println("seat size="+seat.size());
+		for(int i=0;i<seat.size();i++){
+			String s = seat.get(i);
+			String[] tmp = s.split("_");
+			char row_c = tmp[0].charAt(0);
+			int row = row_c - 'A';
+			int col = Integer.parseInt(tmp[1])-1;
+			this.getHall().getSeat()[row][col].setOccupied(false);;
+			int num = this.getHall().getSeatNum();
+			int newnum = num + 1;
+			this.getHall().setSeatNum(newnum);
+//			System.out.println("row="+row_c+"col"+col);
+//			System.out.println("i="+i);
+//			System.out.println("region="+this.getHall().getSeat()[row][col].getRegoin());
+			this.getHall().resetRegionNum(this.getHall().getSeat()[row][col].getRegoin());
+		}
+		return flag;
+	}
 	public int getMovieRemainSeat(){
 		return this.getHall().getSeatNum();
 	}
@@ -289,6 +309,21 @@ public class Movie {
 	 */
 	public void setClassification(Classification classification) {
 		Classification = classification;
+	}
+	public int getGivenRegionRemainSeat(String region) {
+//		System.out.println("region="+region);
+//		System.out.println(this.getBHall());
+		switch(region){
+		case "gray":
+			return this.getHall().getNumOfGray();
+		case "blue":
+			return this.getHall().getNumOfBlue();
+		case "yellow":
+			return this.getHall().getNumOfYellow();
+		case "red":
+			return this.getHall().getNumOfRed();
+		}
+		return 0;
 	}
 	
 	

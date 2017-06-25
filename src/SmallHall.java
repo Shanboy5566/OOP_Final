@@ -6,10 +6,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SmallHall extends Hall {
+	public Seat[][] getSeat() {
+		return seat;
+	}
+
 	private int SeatNum = 144;
 	private String HallName;
 
-	Seat[][] seat = new Seat[9][16];
+	private Seat[][] seat = new Seat[9][16];
 
 	public SmallHall() {
 
