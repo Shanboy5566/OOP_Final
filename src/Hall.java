@@ -6,6 +6,9 @@ import org.json.*;
 import org.apache.commons.io.IOUtils;
 
 public class Hall {
+	public void SetSeat(int num){
+		
+	}
 	public void SetSeat(char c, int i) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist {
 		
 	}

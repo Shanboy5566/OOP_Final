@@ -115,6 +115,9 @@ public class Movie {
 		}
 		
 	}
+	public void setSeat(int num){
+		this.getHall().SetSeat(num);
+	}
 	public void setSeat(String region , int num) throws RegionSeatNotExist{
 		this.getHall().SetSeat(region, num);
 	}

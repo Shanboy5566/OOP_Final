@@ -4,7 +4,7 @@ import org.json.JSONException;
 
 public class test {
 
-	public static void main(String[] args) throws JSONException, IOException, MovieNotExist, RegionSeatNotExist, ConSeqOfRowSeatNotExist {
+	public static void main(String[] args) throws JSONException, IOException, MovieNotExist, RegionSeatNotExist, ConSeqOfRowSeatNotExist, MovieIsNotExist {
 //		SmallHall small = new SmallHall("1");
 //		BigHall big = new BigHall("2");
 ////		big.SetSeat('L', 2);
@@ -62,7 +62,9 @@ public class test {
 //		System.out.println(info2.getMovie("H55WYTppJHIwZyCfUHJLIbWC", "11：30").getClassification());
 //		info2.GetGivenMovieList(2, "20:00" , "22:00" , "180分鐘" , "0分鐘");
 //		info2.GetMovieOfGivenRow(8, 'L');
-		info2.GetMovieOfGivenRow(8, 'L');
+//		info2.GetMovieOfGivenRow(8, 'L');
+//		info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat(2);
+		info2.getMovie("WGd6f01Om27eSmo9X3b6cuXu", "09：10").setSeat(2);;
 //		System.out.println();
 //		System.out.println(info2.isMovieIdValid("3R47wXhjjLqnLWef6HU155ek"));
 //		System.out.println(info2.isMovieIdValid("3R47wXhjjLqnLWef6HU155e"));

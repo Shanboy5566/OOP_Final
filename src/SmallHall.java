@@ -69,7 +69,26 @@ public class SmallHall extends Hall {
 		}
 		return flag;
 	}
-	
+	public void SetSeat(int num){
+		int tmp = 0;
+//		System.out.println("here");
+		for(int i =0;i<9;i++){
+			for(int j=0;j<16;j++){
+				if(seat[i][j].isValid()&&!seat[i][j].isOccupied()){
+//					System.out.println("row="+i+"col="+j);
+					seat[i][j].setOccupied(true);
+					SeatNum--;
+					tmp++;
+					if(tmp==num){
+						break;
+					}
+				}
+			}
+			if(tmp==num){
+				break;
+			}
+		}
+	}
 	public void SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
 //		if (CheckSeatValid(c, i)) {
 //			int row = c - 'A';

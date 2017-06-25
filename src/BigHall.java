@@ -172,7 +172,43 @@ public class BigHall extends Hall {
 
 		return seat[row][col].getRegoin();
 	}
-	
+	public void setSeat(int num){
+		int tmp = 0;
+		for(int i =0;i<13;i++){
+			if(i==11){
+				for(int j=0;j<39;j++){
+					if(seat[i][j].isValid()&&!seat[i][j].isOccupied()){
+						seat[i][j].setOccupied(true);
+						SeatNum--;
+						String region = seat[i][j].getRegoin();
+						this.setRegionNum(region);
+						tmp++;
+					}
+					if(tmp==num){
+						break;
+					}
+				}
+			}
+			else{
+				for(int j=0;j<38;j++){
+					if(seat[i][j].isValid()&&!seat[i][j].isOccupied()){
+//						System.out.println("row="+i+"col="+j);
+						seat[i][j].setOccupied(true);
+						SeatNum--;
+						String region = seat[i][j].getRegoin();
+						this.setRegionNum(region);
+						tmp++;
+					}
+					if(tmp==num){
+						break;
+					}
+				}
+			}
+			if(tmp==num){
+				break;
+			}
+		}
+	}
 	public void SetSeat(String region, int i) throws RegionSeatNotExist{
 		String seq = FindSeqOfRegion(region,i);
 //		System.out.println("seq="+seq);
