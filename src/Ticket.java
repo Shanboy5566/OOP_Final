@@ -1,4 +1,4 @@
-﻿package src;
+﻿//package src;
 import java.util.HashMap;
 /**
  * 這個Ticket class描述了一張電影票應該要有的屬性如下：
@@ -15,60 +15,34 @@ import java.util.HashMap;
 
 public class Ticket {
 
-    private int ticketID;    	//電影票編號
-    private String movieName;    //電影名字
+	public Movie getMovie() {
+		return movie;
+	}
+
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+
+	private String ticketID;    	//電影票編號
+    private Movie movie;    //電影名字
     private String seat;      //座位編號
-    private String classification; //分級
-    private int Running_Time;    //片長
+    private Classification classification; //分級
+    private String Running_Time;    //片長
     private String time;        //開始時間(小時)
-    private String hall;        //廳院
-
-
-    public Ticket(int ticketID, String movieName,String seat, String classification, int Running_Time, String time, String hall) {
-        this.setTicketID(ticketID);
-        this.movieName = movieName;
-        this.setSeat(seat);
-        this.classification=classification;
-        this.Running_Time=Running_Time;
-        this.time = time;
-        this.hall = hall;
-    }
-
-    
-    public String getTime() {
-        return time;
-    }
-
-    public void printTicket() {
-        System.out.println("電影名稱 ： " + movieName + "\n"
-        + "場次時間 : " + time +"\n"
-        + "廳院 : " + hall +"\n"
-        + "座位 : "); //需要呼叫這張票的座位
-    }
-
-	public int getTicketID() {
+    private Hall hall;        //廳院
+    public String getTicketID() {
 		return ticketID;
 	}
 
-	public void setTicketID(int ticketID) {
+
+	public void setTicketID(String ticketID) {
 		this.ticketID = ticketID;
 	}
 
-	public String getClassification() {
-		return classification;
-	}
 
-	public void setClassification(String classification) {
-		this.classification = classification;
-	}
-
-	public int getRunning_Time() {
-		return Running_Time;
-	}
-
-	public void setRunning_Time(int running_Time) {
-		Running_Time = running_Time;
-	}
+	
 
 
 	public String getSeat() {
@@ -79,5 +53,63 @@ public class Ticket {
 	public void setSeat(String seat) {
 		this.seat = seat;
 	}
-}
 
+
+	public Classification getClassification() {
+		return classification;
+	}
+
+
+	public void setClassification(Classification classification) {
+		this.classification = classification;
+	}
+
+
+	public String getRunning_Time() {
+		return Running_Time;
+	}
+
+
+	public void setRunning_Time(String running_Time) {
+		Running_Time = running_Time;
+	}
+
+
+	public String getTime() {
+		return time;
+	}
+
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+
+	public Hall getHall() {
+		return hall;
+	}
+
+
+	public void setHall(Hall hall) {
+		this.hall = hall;
+	}
+
+    public Ticket(String ticketID, Movie movie,String seat, Classification classification,
+    		String Running_Time, String time, Hall hall) {
+        this.ticketID = ticketID;
+        this.movie = movie;
+        this.seat = seat;
+        this.classification = classification;
+        this.Running_Time = Running_Time;
+        this.time = time;
+        this.hall = hall;
+    }
+    
+
+    public void getTicketInfo() {
+        System.out.println("電影名稱 ： " + movie.getMovieName() + "\n"
+        + "場次時間 : " + time +"\n"
+        + "廳院 : " + hall.getHallName() +"\n"
+        + "座位 : "+seat); //需要呼叫這張票的座位
+    }
+}

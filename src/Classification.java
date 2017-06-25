@@ -1,4 +1,3 @@
-
 public class Classification {
 	/**
 	 * classificaiton:
@@ -7,25 +6,36 @@ public class Classification {
 	 * 3: Parents Strongly Cautioned (15 up)
 	 * 4: Restricted(18 up)
 	 */
-	private int classificaiton = 0;
-	
+	private int classificaiton;
+	private int AgeLimit;
 	
 	public Classification(){
+		classificaiton=0;
+		AgeLimit=0;
+	}
+	
+
+	public int getAgelimit(){
+		return AgeLimit;
 	}
 	
 	public Classification(String classificaiton){
 		switch(classificaiton){
 		case "普遍":
 			this.classificaiton = 1;
+			this.AgeLimit=0;
 			break;
 		case "保護":
 			this.classificaiton = 2;
+			this.AgeLimit=6;
 			break;
 		case "輔導":
 			this.classificaiton = 3;
+			this.AgeLimit=15;
 			break;
 		case "限制":
 			this.classificaiton = 4;
+			this.AgeLimit=18;
 			break;
 		
 		}
@@ -35,16 +45,12 @@ public class Classification {
 		switch(classificaiton){
 		case 1:
 			return "普遍";
-//			break;
 		case 2:
 			return "保護";
-//			break;
 		case 3:
 			return "輔導";
-//			break;
 		case 4:
 			return "限制";
-//			break;
 		default:
 			return "Exception";
 		}
@@ -52,21 +58,21 @@ public class Classification {
 	}
 
 	public void setClassificaiton(String classificaiton) {
-		switch(classificaiton){
-		case "普遍":
+		if(classificaiton=="普遍"){
 			this.classificaiton = 1;
-			break;
-		case "保護":
+			this.AgeLimit=0;
+		}
+		else if(classificaiton=="保護"){
 			this.classificaiton = 2;
-			break;
-		case "輔導":
+			this.AgeLimit=6;
+		}
+		else if(classificaiton=="輔導"){
 			this.classificaiton = 3;
-			break;
-		case "限制":
+			this.AgeLimit=15;
+		}
+		else if(classificaiton=="限制"){
 			this.classificaiton = 4;
-			break;
-		
+			this.AgeLimit=18;
 		}
 	}
 }
-

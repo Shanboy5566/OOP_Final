@@ -225,9 +225,9 @@ public class BigHall extends Hall {
 		}
 		return s;
 	}
-	public ArrayList<String> SetSeat(String region, int i) throws RegionSeatNotExist{
+	public ArrayList<String> SetSeat(String region, int i ,boolean flag) throws RegionSeatNotExist, NoContinuousSeat{
 //		boolean flag = false;
-		String seq = FindSeqOfRegion(region,i);
+		String seq = FindSeqOfRegion(region,i,flag);
 		ArrayList<String> s = new ArrayList<String>();
 //		flag = true;
 //		System.out.println("seq="+seq);
@@ -282,7 +282,7 @@ public class BigHall extends Hall {
 		
 	}
 
-	private String FindSeqOfRegion(String region, int num) throws RegionSeatNotExist {
+	private String FindSeqOfRegion(String region, int num , boolean flag) throws RegionSeatNotExist, NoContinuousSeat {
 		int tmp = 0;
 		String seq = "";
 		for(int i = 0;i<13;i++){
@@ -292,24 +292,53 @@ public class BigHall extends Hall {
 						if(seat[i][j].getRegoin().equals(region)&&seat[i][j].isValid()&&!seat[i][j].isOccupied()){
 							seq = seq + i + " " + j + " ";
 							tmp++;
+							if(!isRegionSeqValid(seq)&&flag==true){
+								tmp = 1;
+								seq = i + " ";
+								continue;
+							}
+							if(tmp==num){
+								break;
+							}
 						}
 					}
 				}
 				
 			}
 			else{
+//				System.out.println("here");
 				for(int j=0;j<38;j++){
+//					System.out.println("j="+j);
 					if(tmp!=num){
+//						System.out.println("if in");
+						System.out.println(seat[i][j].getRegoin());
 						if(seat[i][j].getRegoin().equals(region)&&seat[i][j].isValid()&&!seat[i][j].isOccupied()){
+//							System.out.println("if in 2");
 							seq = seq + i + " " + j + " ";
 							tmp++;
+							System.out.println("inside seq="+seq);
+							if(!isRegionSeqValid(seq)&&flag==true){
+								tmp = 1;
+								seq = i + " ";
+								continue;
+							}
+							if(tmp==num){
+								break;
+							}
 						}
 					}
 				}
 			}
+//			System.out.println("seq="+seq);
+			
 			if(tmp==num){
 				break;
 			}
+		}
+//		System.out.println("now seq="+seq);
+//		System.out.println("isSeqValid? "+isSeqValid(seq));
+		if(tmp!=num&&!isRegionSeqValid(seq)&&flag==true){
+			throw new NoContinuousSeat("沒有連續排的座位");
 		}
 		if(tmp!=num){
 			throw new RegionSeatNotExist("Seat not enough");
@@ -317,11 +346,38 @@ public class BigHall extends Hall {
 		return seq;
 	}
 
-	public ArrayList<String> SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
+	private boolean isRegionSeqValid(String seq) {
+		String[] tmp = seq.split(" ");
+//		System.out.println("tmp len="+tmp.length);
+		if(seq.equals("")||tmp.length==1){
+			return false;
+		}
+		String row = tmp[0];
+		String col = tmp[1];
+		boolean flag = true;
+		
+		int op = 0;
+		for(int i = 2;i<tmp.length;i=i+2){
+			if(tmp[i].equals(row)){
+				op = Integer.parseInt(tmp[i+1]) - Integer.parseInt(col);
+				if(op!=1){
+					flag = false;
+				}
+				row = tmp[i];
+				col = tmp[i+1];
+			}
+			else{
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
+	public ArrayList<String> SetSeat(char c, int i, boolean flag) throws ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		int row = c - 'A';
 		ArrayList<String> s = new ArrayList<String>();
 //		boolean flag = false;
-		String seq = FindConSeqOfRow(row,i);
+		String seq = FindConSeqOfRow(row,i,flag);
 //		flag = true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
@@ -365,15 +421,20 @@ public class BigHall extends Hall {
 		
 	}
 
-	private String FindConSeqOfRow(int row , int num) throws ConSeqOfRowSeatNotExist {
+	private String FindConSeqOfRow(int row , int num ,boolean flag) throws ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		int tmp = 0;
 		String seq = "";
 		if(row==11){
-			for(int i=0;i<39-num+1;i++){
-				if(seat[row][i].isValid()&&seat[row][i+1].isValid()){
-					if(!seat[row][i].isOccupied()&&!seat[row][i+1].isOccupied()){
+			for(int i=0;i<39;i++){
+				if(seat[row][i].isValid()){
+					if(!seat[row][i].isOccupied()){
 						tmp++;
 						seq = seq + i +" ";
+						if(!isSeqValid(seq)&&flag==true){
+							tmp = 1;
+							seq = i + " ";
+							continue;
+						}
 						if(tmp==num){
 							break;
 						}
@@ -382,6 +443,9 @@ public class BigHall extends Hall {
 				}
 				tmp = 0;
 				seq = "";
+			}
+			if(tmp!=num&&!isSeqValid(seq)&&flag==true){
+				throw new NoContinuousSeat("沒有連續排的座位");
 			}
 			if(tmp!=num){
 				throw new ConSeqOfRowSeatNotExist("Seat not enough");
@@ -399,6 +463,11 @@ public class BigHall extends Hall {
 //						System.out.println("seat[row]["+i+"]"+seat[row][i].isOccupied());
 						tmp++;
 						seq = seq + i + " ";
+						if(!isSeqValid(seq)&&flag==true){
+							tmp = 1;
+							seq = i + " ";
+							continue;
+						}
 						if(tmp==num){
 							break;
 						}
@@ -407,6 +476,13 @@ public class BigHall extends Hall {
 				}
 				tmp = 0;
 				seq = "";
+			}
+			System.out.println("seq="+seq);
+			System.out.println("tmp="+tmp);
+			System.out.println("num="+num);
+			System.out.println("isSeqValid? "+isSeqValid(seq));
+			if(tmp!=num&&!isSeqValid(seq)&&flag==true){
+				throw new NoContinuousSeat("沒有連續排的座位");
 			}
 			if(tmp!=num){
 				throw new ConSeqOfRowSeatNotExist("Seat not enough");
@@ -417,6 +493,24 @@ public class BigHall extends Hall {
 			
 		}
 		
+	}
+
+	private boolean isSeqValid(String seq) {
+		String[] tmp = seq.split(" ");
+		String basis = tmp[0];
+		boolean flag = true;
+		if(seq.equals("")){
+			flag = false;
+		}
+		int op=0;
+		for(int i=1;i<tmp.length;i++){
+			op = Integer.parseInt(tmp[i]) - Integer.parseInt(basis);
+			if(op!=1){
+				flag = false;
+			}
+			basis = tmp[i];
+		}
+		return flag;
 	}
 
 	public int getNumOfGray() {

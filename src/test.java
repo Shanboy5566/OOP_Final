@@ -5,7 +5,7 @@ import org.json.JSONException;
 
 public class test {
 
-	public static void main(String[] args) throws JSONException, IOException, MovieNotExist, RegionSeatNotExist, ConSeqOfRowSeatNotExist, MovieIsNotExist {
+	public static void main(String[] args) throws JSONException, IOException, MovieNotExist, RegionSeatNotExist, ConSeqOfRowSeatNotExist, MovieIsNotExist, UserNotExist, CanNotWatchThisMovie, SeatNotEnough, CancelFailed, NoContinuousSeat {
 //		SmallHall small = new SmallHall("1");
 //		BigHall big = new BigHall("2");
 ////		big.SetSeat('L', 2);
@@ -47,7 +47,7 @@ public class test {
 //		info.getMovie("3R47wXhjjLqnLWef6HU155ek").getHall().SetSeat('A', 8);
 //		System.out.println("the number of seat="+info.getMovie("3R47wXhjjLqnLWef6HU155ek").getHall().getSeatNum());
 //		
-		MovieInfo info2 = new MovieInfo();
+//		MovieInfo info2 = new MovieInfo();
 //		System.out.println("seatnum1="+info2.getMovie("H55WYTppJHIwZyCfUHJLIbWC", "11：30").getHall().getSeatNum());
 //		info2.getMovie("H55WYTppJHIwZyCfUHJLIbWC", "11：30").getHall().SetSeat("red", 24);
 //		System.out.println("seatnum2="+info2.getMovie("H55WYTppJHIwZyCfUHJLIbWC", "11：30").getMovieRemainSeat());
@@ -67,13 +67,13 @@ public class test {
 //		info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat(2);
 //		info2.getMovie("WGd6f01Om27eSmo9X3b6cuXu", "09：10").setSeat(2);
 		
-		System.out.println("remain seat="+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").getMovieRemainSeat());
-		ArrayList<String> s = info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat("red", 24);
-		System.out.println("your seat is "+s);
-		System.out.println("remain seat="+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").getMovieRemainSeat());
-		System.out.println("Is reset valid? : "+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").ResetSeatOccupied(s));
-		System.out.println("remain seat="+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").getMovieRemainSeat());
-		
+//		System.out.println("remain seat="+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").getMovieRemainSeat());
+//		ArrayList<String> s = info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat("red", 24);
+//		System.out.println("your seat is "+s);
+//		System.out.println("remain seat="+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").getMovieRemainSeat());
+//		System.out.println("Is reset valid? : "+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").ResetSeatOccupied(s));
+//		System.out.println("remain seat="+info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").getMovieRemainSeat());
+//		
 //		System.out.println(info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat(2));
 //		System.out.println(info2.getMovie("3R47wXhjjLqnLWef6HU155ek", "09：40").setSeat('A', 2));
 		
@@ -82,7 +82,7 @@ public class test {
 //		System.out.println(info2.getMovie("WGd6f01Om27eSmo9X3b6cuXu", "09：10").setSeat(2));
 //		System.out.println(info2.getMovie("WGd6f01Om27eSmo9X3b6cuXu", "09：10").setSeat('A', 2));
 		
-		info2.GetMovieOfGivenRegion(24,"red");
+//		info2.GetMovieOfGivenRegion(24,"red");
 //		System.out.println();
 //		System.out.println();
 //		info2.GetMovieOfGivenRow(8, 'L');
@@ -122,6 +122,29 @@ public class test {
 		
 //		System.out.println();
 		
+		TicketOrderService service = new TicketOrderService();
+//		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 24, "red", true);
+		System.out.println(service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 14, "red", true));
+		service.getTicket("001").getTicketInfo();
+//		System.out.println(service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 13, 'A', true));
+//		service.getTicket("025").getTicketInfo();
+//		System.out.println("remain seat = "+service.robot.GetMovieRemainSeat("x7GCv22RgYGfd5l8YdbVqYhZ", "13：50"));
+//		ArrayList<String> t = service.Booking(12, "x7GCv22RgYGfd5l8YdbVqYhZ", "13：50", 4);
+//		for(int i=0;i<t.size();i++){
+//			System.out.println(t.get(i));
+//		}
+//		System.out.println("remain seat = "+service.robot.GetMovieRemainSeat("x7GCv22RgYGfd5l8YdbVqYhZ", "13：50"));
+//		for(int i=0;i<t.size();i++){
+//			service.cancel(t.get(i));
+//		}
+//		System.out.println("remain seat = "+service.robot.GetMovieRemainSeat("x7GCv22RgYGfd5l8YdbVqYhZ", "13：50"));
+		
+//		service.Booking(2, "3R47wXhjjLqnLWef6HU155ek","16：40",2);
+//		service.Booking(13, "H55WYTppJHIwZyCfUHJLIbWC", "22：05", 1);
+//		service.cancel("");
+		
+//		MovieInfo info = new MovieInfo();
+//		info.getMovie("3R47wXhjjLqnLWef6HU155ek","09：40").getHall().SetSeat("red", 2);
 		
 	}
 

@@ -118,11 +118,11 @@ public class Movie {
 	public ArrayList<String> setSeat(int num){
 		return this.getHall().SetSeat(num);
 	}
-	public ArrayList<String> setSeat(String region , int num) throws RegionSeatNotExist{
-		return this.getHall().SetSeat(region, num);
+	public ArrayList<String> setSeat(String region , int num , boolean flag) throws RegionSeatNotExist, NoContinuousSeat{
+		return this.getHall().SetSeat(region, num , flag);
 	}
-	public ArrayList<String> setSeat(char row , int num) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist{
-		return this.getHall().SetSeat(row, num);
+	public ArrayList<String> setSeat(char row , int num , boolean flag) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist, NoContinuousSeat{
+		return this.getHall().SetSeat(row, num , flag);
 	}
 	public boolean ResetSeatOccupied(ArrayList<String> seat){
 		boolean flag = true;
@@ -300,8 +300,8 @@ public class Movie {
 	 * 提供外界取得電影分級
 	 * @return Classification
 	 */
-	public String getClassification() {
-		return Classification.getClassificaiton();
+	public Classification getClassification() {
+		return Classification;
 	}
 	/**
 	 * 提供外界設定電影分級

@@ -12,10 +12,10 @@ public class Hall {
 	public ArrayList<String> SetSeat(int num){
 		return null;
 	}
-	public ArrayList<String> SetSeat(char c, int i) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist {
+	public ArrayList<String> SetSeat(char c, int i ,boolean flag) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		return null;
 	}
-	public ArrayList<String> SetSeat(String region, int i) throws RegionSeatNotExist{
+	public ArrayList<String> SetSeat(String region, int i,boolean flag) throws RegionSeatNotExist, NoContinuousSeat{
 		return null;
 	}
 	public int getNumOfGray() {
