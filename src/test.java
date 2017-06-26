@@ -2,6 +2,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.json.JSONException;
+/** This is a program that can test function.
+ */
+/**
+* 
+* @version 1.0
+* @since   2017-06-26 
+ */
 
 public class test {
 

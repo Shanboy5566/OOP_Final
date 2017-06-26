@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+/** This is a program that can serve as a small hall class.
+ */
+/**
+* 
+* @version 1.0
+* @since   2017-06-26 
+ */
 
 public class SmallHall extends Hall {
 	public Seat[][] getSeat() {
@@ -18,7 +25,11 @@ public class SmallHall extends Hall {
 	public SmallHall() {
 
 	}
-
+	/**
+	* SmallHall constructor. 
+	* @param String	name
+	* @throws JSONException, IOException
+	*/
 	public SmallHall(String name) throws JSONException, IOException {
 		this.setHallName(name);
 		for (int i = 0; i < 9; i++) {
@@ -41,23 +52,41 @@ public class SmallHall extends Hall {
 			}
 		}
 	}
-
+	/**
+	* Hall name getter.  
+	* @return String	HallName
+	*/
 	public String getHallName() {
 		return HallName;
 	}
+	/**
+	* Hall name setter.  
+	* @param String	hallname
+	*/
 
 	public void setHallName(String hallName) {
 		HallName = hallName;
 	}
-
+	/**
+	* Seat number getter.  
+	* @return int	HallName
+	*/
 	public int getSeatNum() {
 		return SeatNum;
 	}
-
+	/**
+	* Seat number setter.  
+	* @param int	seatNum
+	*/
 	public void setSeatNum(int seatNum) {
 		SeatNum = seatNum;
 	}
-
+	/**
+	* Check if seat is valid 
+	* @param int	c
+	* @param int	i
+	* @return boolean	flag
+	*/
 	public boolean CheckSeatValid(char c, int i) {
 		int row = c - 'A';
 		// System.out.println("row = " + row);
@@ -74,6 +103,11 @@ public class SmallHall extends Hall {
 		}
 		return flag;
 	}
+	/**
+	* Set seat
+	* @param int	num
+	* @return ArrayList<String>	s
+	*/
 	public ArrayList<String> SetSeat(int num){
 		int tmp = 0;
 		ArrayList<String> s = new ArrayList<String>();
@@ -108,6 +142,14 @@ public class SmallHall extends Hall {
 		}
 		return s;
 	}
+	/**
+	* Set seat
+	* @param char	c
+	* @param int	i
+	* @param boolean	flag
+	* @throws ConSeqOfRowSeatNotExist, NoContinuousSeat.
+	* @return ArrayList<String>	s
+	*/
 	public ArrayList<String> SetSeat(char c, int i , boolean flag) throws ConSeqOfRowSeatNotExist, NoContinuousSeat {
 //		if (CheckSeatValid(c, i)) {
 //			int row = c - 'A';
@@ -138,7 +180,14 @@ public class SmallHall extends Hall {
 		}
 		return s;
 	}
-
+	/**
+	* Find continuous seats in a given row
+	* @param char	c
+	* @param int	i
+	* @param boolean	flag
+	* @throws ConSeqOfRowSeatNotExist, NoContinuousSeat.
+	* @return String	seq
+	*/
 	private String FindConSeqOfRow(int row, int num , boolean flag) throws  ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		int tmp = 0;
 		String seq = "";
@@ -172,7 +221,11 @@ public class SmallHall extends Hall {
 			return seq;
 		}
 	}
-
+	/**
+	* Check if sequence is valid
+	* @param String	seq
+	* @return boolean	flag
+	*/
 	private boolean isSeqValid(String seq) {
 		String[] tmp = seq.split(" ");
 		String basis = tmp[0];
@@ -192,7 +245,12 @@ public class SmallHall extends Hall {
 		return flag;
 		
 	}
-
+	/**
+	* Check if seat is occupied
+	* @param char	c
+	* @param int	i
+	* @return boolean	isOccupied().
+	*/
 	public boolean CheckSeatOccupied(char c, int i) {
 		int row = c - 'A';
 		int col = i - 1;
@@ -200,6 +258,11 @@ public class SmallHall extends Hall {
 		return seat[row][col].isOccupied();
 
 	}
+	/**
+	* Check the number of empty seat in a given row
+	* @param char	c
+	* @return int	empty.
+	*/
 	public int NumOfEmptySeatOfRow(char c){
 		int row = c - 'A';
 		if(row>8){
@@ -213,7 +276,12 @@ public class SmallHall extends Hall {
 		}
 		return empty;
 	}
-
+	/**
+	* Check seat id number
+	* @param char	c
+	* @param int	i
+	* @return String	getId().
+	*/
 	public String CheckSeatId(char c, int i) {
 		int row = c - 'A';
 		int col = i - 1;
