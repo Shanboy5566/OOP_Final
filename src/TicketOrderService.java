@@ -1,5 +1,4 @@
 ﻿
-//package src;
 import java.util.HashMap;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -13,11 +12,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * 這個TicketOrderService提供 1.一般訂票(Booking) 2.條件訂票(ConditionalBooking)
- * 3.退票(cancel) 4.查詢(inquiry)
- * 
- * @author Roy
- *
+ * 這個TicketOrderService提供 
+ * 1.一般訂票(Booking) 
+ * 2.條件訂票(ConditionalBooking)
+ * 3.退票(cancel) 
+ * 4.查詢(inquiry)
  */
 public class TicketOrderService {
 
@@ -36,14 +35,22 @@ public class TicketOrderService {
 	public User userlist;
 	public ArrayList<Ticket> ticketlist;
 	private int ticketid = 0;
-
+	/**
+	* TicketOrderService constructor. 
+	* @throws JSONException,IOException.
+	*/
 	public TicketOrderService() throws JSONException, IOException {
 		// robot = new MovieInfo();
 		robot = new MovieInfo();
 		userlist = new User();
 		ticketlist = new ArrayList<Ticket>();
 	}
-
+	/**
+	* get ticket information. 
+	* @param TicketId	ticket ID
+	* @throws TicketIsNotExist.
+	*
+	*/
 	public Ticket getTicket(String TicketId) throws TicketIsNotExist {
 		int key = -1;
 		for (int i = 0; i < ticketlist.size(); i++) {
@@ -56,7 +63,12 @@ public class TicketOrderService {
 		}
 		return ticketlist.get(key);
 	}
-
+	/**
+	* check if ticket is valid given ticket id number. 
+	* @param TicketId	ticket ID
+	* @return boolean	flag
+	*
+	*/
 	public boolean isTicketValid(String TicketId) {
 		boolean flag = false;
 		for (int i = 0; i < ticketlist.size(); i++) {
@@ -91,6 +103,16 @@ public class TicketOrderService {
 	// User.user_age +"歲無法購買");
 	// }
 	// }
+	/**
+	* Booking ticket. 
+	* @param user_ID	user ID
+	* @param movie_ID	movie ID
+	* @param time	movie begins at
+	* @param ticketNumber	ticket ID
+	* @throws JSONException,IOException,MovieNotExist, MovieIsNotExist, UserNotExist, CanNotWatchThisMovie, SeatNotEnough.
+	* @return ArrayList	id
+	*
+	*/
 	public ArrayList<String> Booking(int user_ID, String movie_ID, String time, int ticketNumber) throws JSONException, IOException,
 			MovieNotExist, MovieIsNotExist, UserNotExist, CanNotWatchThisMovie, SeatNotEnough {
 		Movie movie = robot.getMovie(movie_ID, time);
@@ -132,7 +154,18 @@ public class TicketOrderService {
 		}
 		return id;
 	}
-
+	/**
+	* Booking ticket with region condition.
+	* @param user_ID	user ID
+	* @param movie_ID	movie ID
+	* @param time	movie begins at
+	* @param ticketNumber	ticket ID
+	* @param region 	seat region
+	* @param contin		check if the seats are abreast
+	* @throws  MovieNotExist, JSONException, IOException, RegionSeatNotExist, ConSeqOfRowSeatNotExist, MovieIsNotExist, UserNotExist, CanNotWatchThisMovie, SeatNotEnough, NoContinuousSeat.
+	* @return ArrayList	id
+	*
+	*/
 	public ArrayList<String> ConditionalBooking(int user_ID, String movie_ID, String time, int ticketNumber, String region,
 			boolean contin) throws MovieNotExist, JSONException, IOException, RegionSeatNotExist,
 			ConSeqOfRowSeatNotExist, MovieIsNotExist, UserNotExist, CanNotWatchThisMovie, SeatNotEnough, NoContinuousSeat {
@@ -191,7 +224,18 @@ public class TicketOrderService {
 		// System.out.println("失敗，該電影放映廳為小廳，無法指定區域");
 		// }
 	}
-
+	/**
+	* Booking ticket with row condition.
+	* @param user_ID	user ID
+	* @param movie_ID	movie ID
+	* @param time	movie begins at
+	* @param ticketNumber	ticket ID
+	* @param row 	seat row
+	* @param contin		check if the seats are abreast
+	* @throws  MovieNotExist, JSONException, IOException, RegionSeatNotExist, ConSeqOfRowSeatNotExist,MovieIsNotExist, UserNotExist, CanNotWatchThisMovie, SeatNotEnough, NoContinuousSeat.
+	* @return ArrayList	id
+	*
+	*/
 	public ArrayList<String> ConditionalBooking(int user_ID, String movie_ID, String time, int ticketNumber, char row , 
 			boolean contin)
 			throws MovieNotExist, JSONException, IOException, RegionSeatNotExist, ConSeqOfRowSeatNotExist,
@@ -249,7 +293,12 @@ public class TicketOrderService {
 		// System.out.println("失敗，該電影放映廳為小廳，無法指定區域");
 		// }
 	}
-
+	/**
+	* Cancel ticket .
+	* @param MovieTicket_ID	id of movie
+	* @throws  MovieNotExist, CancelFailed, TicketIsNotExist.
+	*
+	*/
 	public void cancel(String MovieTicket_ID) throws MovieNotExist, CancelFailed, TicketIsNotExist { // 退票
 		
 		Ticket ticket = this.getTicket(MovieTicket_ID);

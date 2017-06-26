@@ -1,9 +1,15 @@
 import java.io.*;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import org.json.*;
 import org.apache.commons.io.IOUtils;
+/**
+* 使用者類別
+* @version 1.0
+* @since   2017-06-11 
+ */
 public class User {
 	public  int user_ID;
 	public  String user_name;
@@ -14,7 +20,10 @@ public class User {
 	        return IOUtils.toString(is, StandardCharsets.UTF_8);
 	    }    
 	}
-	
+	/**
+	* User no input constructor.
+	* @throws JSONException,IOException.
+	*/
 	public User() throws JSONException, IOException{
 		JSONArray user = new JSONArray(readJsonFile("/Users/bruce0621/Documents/workspace/Final/src/user.json"));
 		for(int i = 0;i<user.length();i++){
@@ -24,13 +33,24 @@ public class User {
 			userlist.add(new User(user_ID,user_name,user_age));
 		}
 	}
-	
+	/**
+	* User constructor. 
+	* @param user_ID    user ID
+	* @param user_name	user name
+	* @param user_age	user age
+	*
+	*/
 	public User(int user_ID, String user_name, int user_age) {
 		this.user_ID = user_ID;
 		this.user_name = user_name;
 		this.user_age = user_age;
 	}
-
+	/**
+	* Get user information. 
+	* @param userId
+	* @throws UserNotExist.
+	* @return User	return user information.
+	*/
 	public User GetUser(int userId) throws UserNotExist{
 		int key = -1;
 		for(int i = 0;i<userlist.size();i++){
