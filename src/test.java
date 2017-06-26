@@ -130,17 +130,29 @@ public class test {
 //		System.out.println();
 		
 		TicketOrderService service = new TicketOrderService();
+		System.out.println("====================1==========================");
 		service.Booking(12, "x7GCv22RgYGfd5l8YdbVqYhZ", "13：50", 4);
+		System.out.println("====================2==========================");
 		service.Booking(3, "3R47wXhjjLqnLWef6HU155ek", "16：40", 2);
+		System.out.println("====================3==========================");
+//年齡不足，訂票失敗
 //		service.Booking(2, "3R47wXhjjLqnLWef6HU155ek", "16：40", 2);
 		service.cancel("001");
+		System.out.println("====================4==========================");
 		service.cancel("002");
+		System.out.println("====================5==========================");
 		service.cancel("003");
+		System.out.println("====================6==========================");
 		service.cancel("004");
+		System.out.println("====================7==========================");
 		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 24, "red", false);
-		System.out.println(service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, 'I', false));
-		service.getTicket("031").getTicketInfo();
-//		System.out.println(service.ConditionalBooking(10, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, "red", false));
+		System.out.println("====================8==========================");
+		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, 'I', false);
+//		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, "red", false);
+//		service.getTicket("031").getTicketInfo();
+
+
+		//退票失敗
 //		service.cancel("101");
 //		service.cancel("102");
 //		service.cancel("103");
@@ -148,10 +160,16 @@ public class test {
 		
 //		System.out.println(service.Booking(12, "WGd6f01Om27eSmo9X3b6cuXu", "09：10", 2));
 //		service.cancel("031");
+		System.out.println("====================9==========================");
 		service.robot.getGreaterScoreMovie(9);
 		System.out.println();
+		System.out.println("====================10==========================");
+		service.robot.GetGivenMovieList(2, "20：00", "22：00", "180分鐘", "0分鐘");
+		System.out.println("====================11==========================");
 		service.getTicket("007").getTicketInfo();
+		System.out.println("====================12==========================");
 		service.robot.getMovieInfo("Q9xwOoSHCD0Xwfm2EiDGRn3Z");
+		System.out.println("====================13==========================");
 		service.robot.GetMovieOfGivenRow(8, 'L');
 		
 //		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 24, 'A', true);

@@ -178,8 +178,8 @@ public class MovieInfo {
 		int Maxinfor;
 		int Mininfor;
 
-		String[] ETime = EarlyTime.split(":");
-		String[] LTime = LastTime.split(":");
+		String[] ETime = EarlyTime.split("：");
+		String[] LTime = LastTime.split("：");
 		String[] MInfor = MaxInfor.split("分");
 		String[] mInfor = MinInfor.split("分");
 
