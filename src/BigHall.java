@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * 這個class會繼承Hall class
+ * 並且擁有總座位數、灰色區域座位總數、藍色區域座位總數、黃色區域座位總數、紅色區域座位總數
+ * 、廳的名字以及自定義的Seat這個class的2D Array
+ * 
+ * @since 2017/06/26
+ * @version 1.4
+ * @author bruce0621
+ *
+ */
 public class BigHall extends Hall {
-
-	public Seat[][] getSeat() {
-		return seat;
-	}
 
 	private int SeatNum = 407;
 	private int NumOfGray = 277;
@@ -19,11 +24,20 @@ public class BigHall extends Hall {
 
 	private String HallName;
 	private Seat[][] seat = new Seat[13][39];
-
+	/**
+	 * 這是一個預設建構子
+	 */
 	public BigHall() {
 
 	}
-
+	/**
+	 * 根據輸入的name來更新廳的名字
+	 * ，再來初始化Seat的2D Array
+	 * 
+	 * @param name
+	 * @throws JSONException
+	 * @throws IOException
+	 */
 	public BigHall(String name) throws JSONException, IOException {
 		
 		this.setHallName(name);
@@ -101,23 +115,50 @@ public class BigHall extends Hall {
 //		System.out.println("NumOfYellow="+NumOfYellow);
 //		System.out.println("NumOfRed="+NumOfRed);
 	}
-
+	/**
+	 * 這是一個提供外界取得Seat Array的方法
+	 * 
+	 * @return seat
+	 */
+	public Seat[][] getSeat() {
+		return seat;
+	}
+	/**
+	 * 這是一個提供外界取得座位總數的方法
+	 * 
+	 * @return SeatNum
+	 */
 	public int getSeatNum() {
 		return SeatNum;
 	}
-
+	/**
+	 * 這是一個提供外界設定座位總數的方法
+	 */
 	public void setSeatNum(int seatNum) {
 		SeatNum = seatNum;
 	}
-
+	/**
+	 * 這是一個提供外界取得廳位名稱的方法
+	 * 
+	 * @return HallName
+	 */
 	public String getHallName() {
 		return HallName;
 	}
-
+	/**
+	 * 這是一個提供外界設定廳位名稱的方法
+	 */
 	public void setHallName(String hallName) {
 		HallName = hallName;
 	}
-
+	/**
+	 * 根據輸入的列數(字元)行數(整數)，來檢查座位是否有效
+	 * 若有效，則能詢問是否座位賣出，且return ture
+	 * 若無效，座位永久不可賣出，且return false
+	 * @param c
+	 * @param i
+	 * @return flag
+	 */
 	public boolean CheckSeatValid(char c, int i) {
 		int row = c - 'A';
 		// System.out.println("row = " + row);
@@ -134,7 +175,14 @@ public class BigHall extends Hall {
 		}
 		return flag;
 	}
-
+	/**
+	 * 根據輸入的列數(字元)行數(整數)，來檢查座位是否有效
+	 * 若有效，則能詢問是否座位賣出，且return ture
+	 * 若無效，座位永久不可賣出，且return false
+	 * @param c 
+	 * @param i
+	 * @return seat[row][col].isOccupied()
+	 */
 	public boolean CheckSeatOccupied(char c, int i) {
 		int row = c - 'A';
 		int col = i - 1;
@@ -142,7 +190,11 @@ public class BigHall extends Hall {
 		return seat[row][col].isOccupied();
 
 	}
-	
+	/**
+	 * 提供外界取得指定列內剩餘的座位數
+	 * 
+	 * @return empty
+	 */
 	public int NumOfEmptySeatOfRow(char c){
 		int row = c - 'A';
 		int empty = 0;
@@ -162,7 +214,12 @@ public class BigHall extends Hall {
 		}
 		return empty;
 	}
-
+	/**
+	 * 提供外界輸入數列數(字元)行數(整數)，來取得seat ID
+	 * @param c
+	 * @param i
+	 * @return seat[row][col].getId()
+	 */
 	public String CheckSeatId(char c, int i) {
 		int row = c - 'A';
 		int col = i - 1;
@@ -170,13 +227,25 @@ public class BigHall extends Hall {
 		return seat[row][col].getId();
 
 	}
-
+	/**
+	 * 提供外界輸入數列數(字元)行數(整數)，來取得seat Region
+	 * 
+	 * @param c
+	 * @param i
+	 * @return seat[row][col].getRegoin()
+	 */
 	public String CheckSeatRegion(char c, int i) {
 		int row = c - 'A';
 		int col = i - 1;
 
 		return seat[row][col].getRegoin();
 	}
+	/**
+	 * 提供外界一個最基本訂票的方法，輸入票張個數來完成訂票
+	 * 若訂票成功，則會將seat設定為已賣出，並且return一個String的ArrayList裡頭記載著訂票完成的座位資訊
+	 * 
+	 * @return s
+	 */
 	public ArrayList<String> SetSeat(int num){
 		int tmp = 0;
 //		boolean flag = false;
@@ -232,6 +301,12 @@ public class BigHall extends Hall {
 		}
 		return s;
 	}
+	/**
+	 * 提供外界一個最條件訂票的方法，輸入指定區域、票張個數、是否要求連續來完成訂票
+	 * 若訂票成功，則會將seat設定為已賣出，並且return一個String的ArrayList裡頭記載著訂票完成的座位資訊
+	 * 
+	 * @return s
+	 */
 	public ArrayList<String> SetSeat(String region, int i ,boolean flag) throws RegionSeatNotExist, NoContinuousSeat{
 //		boolean flag = false;
 		String seq = FindSeqOfRegion(region,i,flag);
@@ -262,7 +337,10 @@ public class BigHall extends Hall {
 		}
 		return s;
 	}
-	
+	/**
+	 * 根據使用者輸入的區域，讓指定的區域總座位數減1
+	 * @param region
+	 */
 	private void setRegionNum(String region) {
 		switch(region){
 		case "gray":
@@ -281,6 +359,9 @@ public class BigHall extends Hall {
 		}
 		
 	}
+	/**
+	 * 根據使用者輸入的區域，讓指定的區域總座位數加1
+	 */
 	public void resetRegionNum(String region) {
 		switch(region){
 		case "gray":
@@ -299,7 +380,17 @@ public class BigHall extends Hall {
 		}
 		
 	}
-
+	/**
+	 * 條件訂票中會使用的一個private的method，輸入區域、張數、是否連續，則會去尋找
+	 * 指定區域中可能存在的座位，最後將有效的座位寫進一個String並回傳。
+	 * 若不存在連續座位或座位數不夠，則會進入例外
+	 * @param region
+	 * @param num
+	 * @param flag
+	 * @return
+	 * @throws RegionSeatNotExist
+	 * @throws NoContinuousSeat
+	 */
 	private String FindSeqOfRegion(String region, int num , boolean flag) throws RegionSeatNotExist, NoContinuousSeat {
 		int tmp = 0;
 		String seq = "";
@@ -363,7 +454,12 @@ public class BigHall extends Hall {
 		}
 		return seq;
 	}
-
+	/**
+	 * FindSeqOfRegion會存取的一個private方法，只有當指定連續條件時才會去會去檢查輸入String
+	 * 是否為有效的座位順序
+	 * @param seq
+	 * @return flag
+	 */
 	private boolean isRegionSeqValid(String seq) {
 		String[] tmp = seq.split(" ");
 //		System.out.println("tmp len="+tmp.length);
@@ -390,7 +486,12 @@ public class BigHall extends Hall {
 		}
 		return flag;
 	}
-
+	/**
+	 * 提供外界一個最條件訂票的方法，輸入指定列數、票張個數、是否要求連續來完成訂票
+	 * 若訂票成功，則會將seat設定為已賣出，並且return一個String的ArrayList裡頭記載著訂票完成的座位資訊
+	 * 
+	 * @return s
+	 */
 	public ArrayList<String> SetSeat(char c, int i, boolean flag) throws ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		int row = c - 'A';
 		ArrayList<String> s = new ArrayList<String>();
@@ -427,8 +528,10 @@ public class BigHall extends Hall {
 //		System.out.println("NumOfRed="+NumOfRed);
 		return s;
 	}
-	
-	
+	/**
+	 * 提供一個方法輸數座位Seat，自動判斷它的區域為何，再去將對應的區域總位數1
+	 * @param seat
+	 */
 	private void setRegionNum(Seat seat) {
 		String color = seat.getRegoin();
 		switch(color){
@@ -449,7 +552,18 @@ public class BigHall extends Hall {
 			
 		
 	}
-
+	/**
+	 * 條件訂票中會使用的一個private的method，輸入列數、張數、是否連續，則會去尋找
+	 * 指定區域中可能存在的座位，最後將有效的座位寫進一個String並回傳。
+	 * 若不存在連續座位或座位數不夠，則會進入例外
+	 * 
+	 * @param row
+	 * @param num
+	 * @param flag
+	 * @return
+	 * @throws ConSeqOfRowSeatNotExist
+	 * @throws NoContinuousSeat
+	 */
 	private String FindConSeqOfRow(int row , int num ,boolean flag) throws ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		int tmp = 0;
 		String seq = "";
@@ -523,7 +637,13 @@ public class BigHall extends Hall {
 		}
 		
 	}
-
+	/**
+	 * FindConSeqOfRow會存取的一個private方法，只有當指定連續條件時才會去會去檢查輸入String
+	 * 是否為有效的座位順序
+	 * 
+	 * @param seq
+	 * @return flag
+	 */
 	private boolean isSeqValid(String seq) {
 		String[] tmp = seq.split(" ");
 		String basis = tmp[0];
@@ -541,19 +661,31 @@ public class BigHall extends Hall {
 		}
 		return flag;
 	}
-
+	/**
+	 * 提供外界取得灰色區域總座位數的方法
+	 * @return NumOfGray
+	 */
 	public int getNumOfGray() {
 		return NumOfGray;
 	}
-
+	/**
+	 * 提供外界取得藍色區域總座位數的方法
+	 * @return NumOfBlue
+	 */
 	public int getNumOfBlue() {
 		return NumOfBlue;
 	}
-
+	/**
+	 * 提供外界取得黃色區域總座位數的方法
+	 * @return NumOfYellow
+	 */
 	public int getNumOfYellow() {
 		return NumOfYellow;
 	}
-
+	/**
+	 * 提供外界取得紅色區域總座位數的方法
+	 * @return NumOfRed
+	 */
 	public int getNumOfRed() {
 		return NumOfRed;
 	}

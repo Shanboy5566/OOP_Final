@@ -57,11 +57,11 @@ public class Movie {
 //	}
 	/**
 	 * 這是Movie這個class的建構子(constructor)
-	 * 根據輸入的JSONObject，將其各個屬性變數塞入Movie這個class下的variable
-	 * 需要注意的是第81行，會判斷爬出來的廳位是大廳或小廳
+	 * 根據輸入的JSONObject以及時間Time，將其各個屬性變數塞入Movie這個class下的variable
+	 * 需要注意此建構子會判斷爬出來的廳位是大廳或小廳
 	 * 如果是大廳，則是更新BigHall;小廳的話則是更新SmallHall
-	 * 
 	 * @param home
+	 * @param time
 	 * @throws JSONException
 	 * @throws IOException
 	 */
@@ -90,6 +90,16 @@ public class Movie {
 		}
 		
 	}
+	/**
+	 * 這是Movie這個class的建構子(constructor)
+	 * 根據輸入的JSONObject，將其各個屬性變數塞入Movie這個class下的variable
+	 * 需要注意此建構子會判斷爬出來的廳位是大廳或小廳
+	 * 如果是大廳，則是更新BigHall;小廳的話則是更新SmallHall
+	 * 
+	 * @param home
+	 * @throws JSONException
+	 * @throws IOException
+	 */
 	public Movie(JSONObject home) throws JSONException, IOException{
 		this.setId(home.getString("id"));
 		this.setMovieName(home.getString("movie"));
@@ -115,15 +125,44 @@ public class Movie {
 		}
 		
 	}
+	/**
+	 * 提供該電影的基本訂票方式，會呼叫Hall裡面的SetSeat Method
+	 * @param num
+	 * @return ArrayList<String>
+	 */
 	public ArrayList<String> setSeat(int num){
 		return this.getHall().SetSeat(num);
 	}
+	/**
+	 * 提供該電影的條件訂票方式，會呼叫Hall裡面的setSeat Method
+	 * @param region
+	 * @param num
+	 * @param flag
+	 * @return
+	 * @throws RegionSeatNotExist
+	 * @throws NoContinuousSeat
+	 */
 	public ArrayList<String> setSeat(String region , int num , boolean flag) throws RegionSeatNotExist, NoContinuousSeat{
 		return this.getHall().SetSeat(region, num , flag);
 	}
+	/**
+	 * 提供該電影的條件訂票方式，會呼叫Hall裡面的setSeat Method
+	 * @param row
+	 * @param num
+	 * @param flag
+	 * @return
+	 * @throws RegionSeatNotExist
+	 * @throws ConSeqOfRowSeatNotExist
+	 * @throws NoContinuousSeat
+	 */
 	public ArrayList<String> setSeat(char row , int num , boolean flag) throws RegionSeatNotExist, ConSeqOfRowSeatNotExist, NoContinuousSeat{
 		return this.getHall().SetSeat(row, num , flag);
 	}
+	/**
+	 * 提供退票時重設座位成為未賣出的method
+	 * @param seat
+	 * @return flag
+	 */
 	public boolean ResetSeatOccupied(ArrayList<String> seat){
 		boolean flag = true;
 //		System.out.println("seat="+seat);
@@ -145,16 +184,27 @@ public class Movie {
 		}
 		return flag;
 	}
+	/**
+	 * 取得該電影剩餘的總座位數
+	 * @return this.getHall().getSeatNum()
+	 */
 	public int getMovieRemainSeat(){
 		return this.getHall().getSeatNum();
 	}
+	/**
+	 * 取得該電影的基本資訊
+	 */
 	public void getMovieInfo() {
 		System.out.println("電影名稱:" + getMovieName());
 		System.out.println("分級:" + getClassification());
 		System.out.println("播映時間:" + getTime());
 		System.out.println("廳位:" + getHallName());
 	}
-	private String getHallName() {
+	/**
+	 * 取得該電影的電影廳為名稱
+	 * @return String
+	 */
+	public String getHallName() {
 		return this.getHall().getHallName();
 	}
 	/**

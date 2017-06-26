@@ -161,7 +161,15 @@ public class MovieInfo {
 		int seat = movie.get(key).getHall().getSeatNum();
 		return seat;
 	}
-
+	/**
+	 * 提供查詢之功能，輸入需求座位數, 指定條件[最早/最晚播映時間, 最大/最小片長]
+	 * 將符合指定條件的電影ID、播放場次時間印出
+	 * @param NumOfseat
+	 * @param EarlyTime
+	 * @param LastTime
+	 * @param MaxInfor
+	 * @param MinInfor
+	 */
 	public void GetGivenMovieList(int NumOfseat, String EarlyTime, String LastTime, String MaxInfor, String MinInfor) {
 		int EHour;
 		int LHour;
@@ -234,7 +242,13 @@ public class MovieInfo {
 		}
 
 	}
-
+	/**
+	 * 提供查詢限定排數座位尚有票的電影列表，輸入需求座位數, 指定列數
+	 * ，輸出符合條件的所有電影ID、播放場次
+	 * @param NumOfseat
+	 * @param row
+	 * @throws MovieIsNotExist
+	 */
 	public void GetMovieOfGivenRow(int NumOfseat, char row) throws MovieIsNotExist {
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
 		String s = "";
@@ -271,6 +285,13 @@ public class MovieInfo {
 			}
 		}
 	}
+	/**
+	 * 提供查詢限定區域座位尚有票的電影列表，輸入需求座位數, 指定區域
+	 * ，輸出符合條件的所有電影ID、播放場次
+	 * @param NumOfseat
+	 * @param region
+	 * @throws MovieIsNotExist
+	 */
 	public void GetMovieOfGivenRegion(int NumOfseat, String region) throws MovieIsNotExist{
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
 //		System.out.println("list size="+tmp.size());
@@ -321,8 +342,13 @@ public class MovieInfo {
 		
 		
 	}
-	
-
+	/**
+	 * 提供一個驗證電影是否存在的方法，輸入指定電影ID
+	 * ，若存在則return ture，反之。
+	 * @param id
+	 * @return flag
+	 * @throws MovieNotExist
+	 */
 	public boolean isMovieIdValid(String id) throws MovieNotExist{
 		boolean flag = false;
 		for(int i=0;i<movielist.size();i++){
