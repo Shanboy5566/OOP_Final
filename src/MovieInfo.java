@@ -67,10 +67,10 @@ public class MovieInfo {
 		if (key == -1) {
 			throw new MovieIsNotExist("The movie is not exist");
 		}
-		System.out.println("電影名稱:" + movielist.get(key).getMovieName());
-		System.out.println("分級:" + movielist.get(key).getClassification());
-		System.out.println("播映時間:" + movielist.get(key).getTime());
-		System.out.println("廳位:" + movielist.get(key).getHall().getHallName());
+		System.out.println("電影名稱：" + movielist.get(key).getMovieName());
+		System.out.println("分級：" + movielist.get(key).getClassification());
+		System.out.println("播映時間：" + movielist.get(key).getTime());
+		System.out.println("廳位：" + movielist.get(key).getHall().getHallName());
 	}
 
 	/**
@@ -112,11 +112,21 @@ public class MovieInfo {
 			score2 = Double.parseDouble(ScoreArr[1]);
 			if (score < 10) {
 				if (score1 >= score) {
-					System.out.print(movielist.get(i).getMovieName() + " \n");
+					if(i==movielist.size()-1){
+						System.out.print(movielist.get(i).getId());
+					}
+					else{
+						System.out.print(movielist.get(i).getId() + ", ");
+					}
 				}
 			} else {
 				if (score2 >= score) {
-					System.out.print(movielist.get(i).getMovieName() + " \n");
+					if(i==movielist.size()-1){
+						System.out.print(movielist.get(i).getId());
+					}
+					else{
+						System.out.print(movielist.get(i).getId() + ", ");
+					}
 				}
 			}
 		}

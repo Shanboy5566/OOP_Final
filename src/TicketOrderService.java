@@ -44,7 +44,7 @@ public class TicketOrderService {
 		ticketlist = new ArrayList<Ticket>();
 	}
 
-	public Ticket getTicket(String TicketId) {
+	public Ticket getTicket(String TicketId) throws TicketIsNotExist {
 		int key = -1;
 		for (int i = 0; i < ticketlist.size(); i++) {
 			if (ticketlist.get(i).getTicketID().equals(TicketId)) {
@@ -52,7 +52,7 @@ public class TicketOrderService {
 			}
 		}
 		if (key == -1) {
-
+			throw new TicketIsNotExist("無此票ID");
 		}
 		return ticketlist.get(key);
 	}
@@ -114,14 +114,21 @@ public class TicketOrderService {
 					id.add(ticketID);
 //					System.out.println(movie.getId());
 				}
-				System.out.println(movie.getId() + " 於 " + movie.getTime() + " 目前仍有 " + movie.getMovieRemainSeat());
+				if(movie.getHall().getHallName().equals(" 峨嵋 ")||movie.getHall().getHallName().equals(" 崆峒 ")){
+					System.out.println(movie.getId() + " 於 " + movie.getTime() + " 目前仍有 " + movie.getMovieRemainSeat());
+				}
+				else{
+					System.out.println(movie.getId() + " 於 " + movie.getTime() + " 目前仍有 gray:" + movie.getHall().getNumOfGray()
+						+" blue:"+movie.getHall().getNumOfBlue()+" yellow:"+movie.getHall().getNumOfYellow()
+						+" red:"+movie.getHall().getNumOfRed());
+				}
 
 			} else {
 				Classification c = movie.getClassification();
-				throw new CanNotWatchThisMovie("失敗, 該電影分級為" + c.getClassificaiton() + ", " + user.user_age + "歲無法購買");
+				throw new CanNotWatchThisMovie("失敗，該電影分級為" + c.getClassificaiton() + ", " + user.user_age + "歲無法購買");
 			}
 		} else {
-			throw new SeatNotEnough("失敗," + movie.getId() + "於" + movie.getTime() + "座位數量不夠");
+			throw new SeatNotEnough("失敗，" + movie.getId() + "於" + movie.getTime() + "座位數量不夠");
 		}
 		return id;
 	}
@@ -136,6 +143,9 @@ public class TicketOrderService {
 		if (ticketNumber <= movie.getMovieRemainSeat()) {
 			if (user.user_age >= movie.getClassification().getAgelimit()) {
 				s = movie.setSeat(region, ticketNumber,contin);
+				if(s.get(0).equals("not enough")){
+					throw new SeatNotEnough("失敗，"+movie.getId()+" 於 "+movie.getTime()+" "+region+" 座位數量不夠");
+				}
 				String moviename = movie.getMovieName();
 				Classification c = movie.getClassification();
 				String infor = movie.getInfor();
@@ -153,10 +163,10 @@ public class TicketOrderService {
 						+" red:"+movie.getHall().getNumOfRed());
 			} else {
 				Classification c = movie.getClassification();
-				throw new CanNotWatchThisMovie("失敗, 該電影分級為" + c.getClassificaiton() + ", " + user.user_age + "歲無法購買");
+				throw new CanNotWatchThisMovie("失敗，該電影分級為" + c.getClassificaiton() + ", " + user.user_age + "歲無法購買");
 			}
 		} else {
-			throw new SeatNotEnough("失敗," + movie.getId() + "於" + movie.getTime() + "座位數量不夠");
+			throw new SeatNotEnough("失敗，" + movie.getId() + "於" + movie.getTime() + "座位數量不夠");
 		}
 		return id;
 		// int SeatNum=robot.GetMovieRemainSeat(movie_ID, time);
@@ -193,6 +203,9 @@ public class TicketOrderService {
 		if (ticketNumber <= movie.getMovieRemainSeat()) {
 			if (user.user_age >= movie.getClassification().getAgelimit()) {
 				s = movie.setSeat(row, ticketNumber , contin);
+				if(s.get(0).equals("not enough")){
+					throw new SeatNotEnough("失敗，"+movie.getId()+" 於 "+movie.getTime()+" "+row+"排 座位數量不夠");
+				}
 				String moviename = movie.getMovieName();
 				Classification c = movie.getClassification();
 				String infor = movie.getInfor();
@@ -205,13 +218,13 @@ public class TicketOrderService {
 					id.add(ticketID);
 //					System.out.println(movie.getId());
 				}
-				System.out.println(movie.getId() + "於" + movie.getTime() + "目前仍有" + movie.getMovieRemainSeat());
+				System.out.println(movie.getId() + " 於 " + movie.getTime() + " 目前仍有 " + movie.getMovieRemainSeat());
 			} else {
 				Classification c = movie.getClassification();
-				throw new CanNotWatchThisMovie("失敗, 該電影分級為" + c.getClassificaiton() + ", " + user.user_age + "歲無法購買");
+				throw new CanNotWatchThisMovie("失敗，該電影分級為" + c.getClassificaiton() + ", " + user.user_age + "歲無法購買");
 			}
 		} else {
-			throw new SeatNotEnough("失敗," + movie.getId() + "於" + movie.getTime() +" " +"座位數量不夠");
+			throw new SeatNotEnough("失敗，" + movie.getId() + "於" + movie.getTime() +" " +"座位數量不夠");
 		}
 		return id;
 		// int SeatNum=robot.GetMovieRemainSeat(movie_ID, time);
@@ -237,16 +250,19 @@ public class TicketOrderService {
 		// }
 	}
 
-	public void cancel(String MovieTicket_ID) throws MovieNotExist, CancelFailed { // 退票
-
+	public void cancel(String MovieTicket_ID) throws MovieNotExist, CancelFailed, TicketIsNotExist { // 退票
+		
+		Ticket ticket = this.getTicket(MovieTicket_ID);
+		String seat = ticket.getSeat();
+		
 		Date dNow = new Date();
 		SimpleDateFormat formatter1 = new SimpleDateFormat("E yyyy.MM.dd '/ 'a hh:mm:ss  ");
 		SimpleDateFormat formatter2 = new SimpleDateFormat("hh:mm");
 		System.out.println("現在時刻: " + formatter1.format(dNow));
 
 		Movie movie = this.getTicket(MovieTicket_ID).getMovie();
-		ArrayList<String> seat = new ArrayList<String>();
-		seat.add(MovieTicket_ID);
+		ArrayList<String> seatlist = new ArrayList<String>();
+		seatlist.add(seat);
 
 		// robot.setMovieInfo(MovieTicket_ID);
 
@@ -263,7 +279,7 @@ public class TicketOrderService {
 			if (this.isTicketValid(MovieTicket_ID)) {
 				if (a_total - now_total >= 20) {
 					// for(int i=0;i)
-					movie.ResetSeatOccupied(seat);
+					movie.ResetSeatOccupied(seatlist);
 					System.out.println("退票成功，全額退款");
 					//
 				} else {

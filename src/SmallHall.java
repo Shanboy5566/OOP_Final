@@ -101,7 +101,7 @@ public class SmallHall extends Hall {
 		}
 		return s;
 	}
-	public ArrayList<String> SetSeat(char c, int i) throws ConSeqOfRowSeatNotExist {
+	public ArrayList<String> SetSeat(char c, int i , boolean flag) throws ConSeqOfRowSeatNotExist, NoContinuousSeat {
 //		if (CheckSeatValid(c, i)) {
 //			int row = c - 'A';
 //			int col = i - 1;
@@ -111,7 +111,7 @@ public class SmallHall extends Hall {
 		int row = c - 'A';
 		ArrayList<String> s = new ArrayList<String>();
 //		boolean flag = false;
-		String seq = FindConSeqOfRow(row,i);
+		String seq = FindConSeqOfRow(row,i,flag);
 //		flag =true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
@@ -125,22 +125,31 @@ public class SmallHall extends Hall {
 		return s;
 	}
 
-	private String FindConSeqOfRow(int row, int num) throws  ConSeqOfRowSeatNotExist {
+	private String FindConSeqOfRow(int row, int num , boolean flag) throws  ConSeqOfRowSeatNotExist, NoContinuousSeat {
 		int tmp = 0;
 		String seq = "";
 		for(int i=0;i<16;i++){
-			if(seat[row][i].isValid()&&seat[row][i+1].isValid()){
-				if(!seat[row][i].isOccupied()&&!seat[row][i+1].isOccupied()){
+			if(seat[row][i].isValid()){
+				if(!seat[row][i].isOccupied()){
 					tmp++;
 					seq = seq + i + " ";
+					if(!isSeqValid(seq)&&flag==true){
+						tmp = 1;
+						seq = i + " ";
+						continue;
+					}
 					if(tmp==num){
 						break;
 					}
 					continue;
 				}
 			}
-			tmp = 0;
-			seq = "";
+//			tmp = 0;
+//			seq = "";
+		}
+//		System.out.println("seq="+seq);
+		if(tmp!=num&&flag==true){
+			throw new NoContinuousSeat("沒有連續排的座位");
 		}
 		if(tmp!=num){
 			throw new ConSeqOfRowSeatNotExist("Seat not enough");
@@ -148,6 +157,26 @@ public class SmallHall extends Hall {
 		else{
 			return seq;
 		}
+	}
+
+	private boolean isSeqValid(String seq) {
+		String[] tmp = seq.split(" ");
+		String basis = tmp[0];
+		boolean flag = true;
+		if(seq.equals("")){
+			flag = false;
+		}
+		if(tmp.length==1){
+			flag = true;
+		}
+		for(int i=1;i<tmp.length;i++){
+			if((basis.equals("3")&&tmp[i].equals("4"))||(basis.equals("11")&&tmp[i].equals("12"))){
+				flag = false;
+			}
+			basis = tmp[i];
+		}
+		return flag;
+		
 	}
 
 	public boolean CheckSeatOccupied(char c, int i) {

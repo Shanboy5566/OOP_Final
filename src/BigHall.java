@@ -229,6 +229,11 @@ public class BigHall extends Hall {
 //		boolean flag = false;
 		String seq = FindSeqOfRegion(region,i,flag);
 		ArrayList<String> s = new ArrayList<String>();
+		if(seq.equals("not enough")){
+			s.add("not enough");
+			return s;
+		}
+		
 //		flag = true;
 //		System.out.println("seq="+seq);
 		String[] tmp = seq.split(" ");
@@ -311,12 +316,12 @@ public class BigHall extends Hall {
 //					System.out.println("j="+j);
 					if(tmp!=num){
 //						System.out.println("if in");
-						System.out.println(seat[i][j].getRegoin());
+//						System.out.println(seat[i][j].getRegoin());
 						if(seat[i][j].getRegoin().equals(region)&&seat[i][j].isValid()&&!seat[i][j].isOccupied()){
 //							System.out.println("if in 2");
 							seq = seq + i + " " + j + " ";
 							tmp++;
-							System.out.println("inside seq="+seq);
+//							System.out.println("inside seq="+seq);
 							if(!isRegionSeqValid(seq)&&flag==true){
 								tmp = 1;
 								seq = i + " ";
@@ -337,11 +342,11 @@ public class BigHall extends Hall {
 		}
 //		System.out.println("now seq="+seq);
 //		System.out.println("isSeqValid? "+isSeqValid(seq));
-		if(tmp!=num&&!isRegionSeqValid(seq)&&flag==true){
+		if(tmp!=num&&flag==true){
 			throw new NoContinuousSeat("沒有連續排的座位");
 		}
 		if(tmp!=num){
-			throw new RegionSeatNotExist("Seat not enough");
+			return "not enough";
 		}
 		return seq;
 	}
@@ -378,6 +383,10 @@ public class BigHall extends Hall {
 		ArrayList<String> s = new ArrayList<String>();
 //		boolean flag = false;
 		String seq = FindConSeqOfRow(row,i,flag);
+		if(seq.equals("not enough")){
+			s.add("not enough");
+			return s;
+		}
 //		flag = true;
 //		System.out.println(seq);
 		String[] seqarr = seq.split(" ");
@@ -448,7 +457,7 @@ public class BigHall extends Hall {
 				throw new NoContinuousSeat("沒有連續排的座位");
 			}
 			if(tmp!=num){
-				throw new ConSeqOfRowSeatNotExist("Seat not enough");
+				return "not enough";
 			}
 			else{
 				return seq;
@@ -477,11 +486,11 @@ public class BigHall extends Hall {
 				tmp = 0;
 				seq = "";
 			}
-			System.out.println("seq="+seq);
-			System.out.println("tmp="+tmp);
-			System.out.println("num="+num);
-			System.out.println("isSeqValid? "+isSeqValid(seq));
-			if(tmp!=num&&!isSeqValid(seq)&&flag==true){
+//			System.out.println("seq="+seq);
+//			System.out.println("tmp="+tmp);
+//			System.out.println("num="+num);
+//			System.out.println("isSeqValid? "+isSeqValid(seq));
+			if(tmp!=num&&flag==true){
 				throw new NoContinuousSeat("沒有連續排的座位");
 			}
 			if(tmp!=num){

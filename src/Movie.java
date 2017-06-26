@@ -126,7 +126,8 @@ public class Movie {
 	}
 	public boolean ResetSeatOccupied(ArrayList<String> seat){
 		boolean flag = true;
-		System.out.println("seat size="+seat.size());
+//		System.out.println("seat="+seat);
+//		System.out.println("seat size="+seat.size());
 		for(int i=0;i<seat.size();i++){
 			String s = seat.get(i);
 			String[] tmp = s.split("_");
