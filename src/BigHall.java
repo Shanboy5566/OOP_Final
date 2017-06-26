@@ -192,7 +192,14 @@ public class BigHall extends Hall {
 						tmp++;
 						char row =(char)(i+65);
 						int col = j+1;
-						s.add(row+"_"+Integer.toString(col));
+						String Scol = "";
+						if(col<10){
+							Scol = String.format("%02d", col);
+							s.add(row+"_"+Scol);
+						}
+						else{
+							s.add(row +"_"+ Integer.toString(col));
+						}
 					}
 					if(tmp==num){
 //						flag = true;
@@ -243,8 +250,14 @@ public class BigHall extends Hall {
 			setRegionNum(region);
 			char row =(char)(Integer.parseInt(tmp[k])+65);
 			int col = Integer.parseInt(tmp[k+1])+1;
-			
-			s.add(row +"_"+ Integer.toString(col));
+			String Scol = "";
+			if(col<10){
+				Scol = String.format("%02d", col);
+				s.add(row+"_"+Scol);
+			}
+			else{
+				s.add(row +"_"+ Integer.toString(col));
+			}
 //			System.out.println("row="+tmp[k]+" col="+tmp[k+1]);
 		}
 		return s;
@@ -399,7 +412,14 @@ public class BigHall extends Hall {
 			setRegionNum(seat[row][Integer.parseInt(seqarr[j])]);
 			SeatNum--;
 			int col = Integer.parseInt(seqarr[j]) + 1;
-			s.add(c+"_"+Integer.toString(col));
+			String Scol = "";
+			if(col<10){
+				Scol = String.format("%02d", col);
+				s.add(c+"_"+Scol);
+			}
+			else{
+				s.add(c +"_"+ Integer.toString(col));
+			}
 		}
 //		System.out.println("NumOfGray="+NumOfGray);
 //		System.out.println("NumOfBlue="+NumOfBlue);

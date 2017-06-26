@@ -131,7 +131,8 @@ public class test {
 		service.cancel("003");
 		service.cancel("004");
 		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 24, "red", false);
-		service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, 'I', false);
+		System.out.println(service.ConditionalBooking(9, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, 'I', false));
+		service.getTicket("031").getTicketInfo();
 //		System.out.println(service.ConditionalBooking(10, "H55WYTppJHIwZyCfUHJLIbWC", "17：10", 2, "red", false));
 //		service.cancel("101");
 //		service.cancel("102");
@@ -142,7 +143,7 @@ public class test {
 //		service.cancel("031");
 		service.robot.getGreaterScoreMovie(9);
 		System.out.println();
-		service.getTicket("007").getTicketInfo();;
+		service.getTicket("007").getTicketInfo();
 		service.robot.getMovieInfo("Q9xwOoSHCD0Xwfm2EiDGRn3Z");
 		service.robot.GetMovieOfGivenRow(8, 'L');
 		
